@@ -85,6 +85,7 @@ async function logout() {
 
       <div class="d-flex align-items-center">
         <button
+          v-if="appConfig.features.toggleFullScreen"
           type="button"
           class="btn header-item d-none d-sm-inline-block"
           aria-label="Activar pantalla completa"

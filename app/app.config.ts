@@ -3,6 +3,7 @@ export default defineAppConfig({
   description: 'Skote theme App.',
 
   features: {
-    notifications: true,
+    notifications: false,
+    toggleFullScreen: false,
   },
 });
