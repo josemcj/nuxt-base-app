@@ -1,15 +1,18 @@
 <script setup lang="ts">
-const layoutStore = useLayoutStore();
+const appConfig = useAppConfig();
 
-const { layoutWidth, loader, topbar } = storeToRefs(layoutStore);
+const { width: layoutWidth, topbar } = appConfig.layout;
+
+const layoutStore = useLayoutStore();
+const { loader } = storeToRefs(layoutStore);
 
 const menuOpen = ref(false);
 
 useHead(() => ({
   bodyAttrs: {
     'data-layout': 'horizontal',
-    'data-topbar': topbar.value,
-    'data-layout-size': layoutWidth.value === 'boxed' ? 'boxed' : null,
+    'data-topbar': topbar,
+    'data-layout-size': layoutWidth === 'boxed' ? 'boxed' : null,
   },
 }));
 
