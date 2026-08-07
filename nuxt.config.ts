@@ -23,4 +23,12 @@ export default defineNuxtConfig({
     typeCheck: true,
     strict: true,
   },
+
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'es-MX',
+      },
+    },
+  },
 });
