@@ -99,7 +99,7 @@ async function logout() {
         <NotificationsDropdown
           v-if="appConfig.features.notifications"
           :items="notifications"
-          view-all-to="/notifications"
+          view-all-to="#"
           @select="selectNotification"
           @mark-all-as-read="notificationsStore.markAllAsRead()" />
 
