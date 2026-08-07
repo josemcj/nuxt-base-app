@@ -29,8 +29,8 @@ function toggleMenu() {
     </div>
 
     <div id="layout-wrapper">
-      <AppHeader :menu-open="menuOpen" @toggle-menu="toggleMenu" />
-      <AppHorizontalNav :open="menuOpen" @close="menuOpen = false" />
+      <LayoutHorizontalHeader :menu-open="menuOpen" @toggle-menu="toggleMenu" />
+      <LayoutHorizontalNav :open="menuOpen" @close="menuOpen = false" />
 
       <div class="main-content">
         <div class="page-content">
@@ -39,7 +39,7 @@ function toggleMenu() {
           </BContainer>
         </div>
 
-        <AppFooter />
+        <LayoutFooter />
       </div>
     </div>
   </div>

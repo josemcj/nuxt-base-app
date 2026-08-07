@@ -4,11 +4,11 @@ const { layoutType } = storeToRefs(layoutStore);
 </script>
 
 <template>
-  <AppVerticalLayout v-if="layoutType === 'vertical'">
+  <LayoutVerticalLayout v-if="layoutType === 'vertical'">
     <slot />
-  </AppVerticalLayout>
+  </LayoutVerticalLayout>
 
-  <AppHorizontalLayout v-else>
+  <LayoutHorizontalLayout v-else>
     <slot />
-  </AppHorizontalLayout>
+  </LayoutHorizontalLayout>
 </template>

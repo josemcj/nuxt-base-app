@@ -74,9 +74,8 @@ watch(
     </div>
 
     <div id="layout-wrapper">
-      <AppVerticalHeader @toggle-menu="toggleMenu" />
-
-      <AppSidebar />
+      <LayoutVerticalHeader @toggle-menu="toggleMenu" />
+      <LayoutVerticalSidebar />
 
       <div class="main-content">
         <div class="page-content">
@@ -85,7 +84,7 @@ watch(
           </BContainer>
         </div>
 
-        <AppFooter />
+        <LayoutFooter />
       </div>
     </div>
   </div>
