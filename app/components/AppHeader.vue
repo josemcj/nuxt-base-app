@@ -7,6 +7,8 @@ const emit = defineEmits<{
   toggleMenu: [];
 }>();
 
+const appConfig = useAppConfig();
+
 const authStore = useAuthStore();
 
 const displayName = computed(() => {
@@ -39,21 +41,21 @@ async function logout() {
         <div class="navbar-brand-box">
           <NuxtLink to="/" class="logo logo-dark">
             <span class="logo-sm">
-              <img src="~/assets/images/logo.svg" alt="Skote theme" height="22" />
+              <img src="~/assets/images/logo.svg" :alt="appConfig.title" height="22" />
             </span>
 
             <span class="logo-lg">
-              <img src="~/assets/images/logo.svg" alt="Skote theme" height="34" />
+              <img src="~/assets/images/logo.svg" :alt="appConfig.title" height="34" />
             </span>
           </NuxtLink>
 
           <NuxtLink to="/" class="logo logo-light">
             <span class="logo-sm">
-              <img src="~/assets/images/logo-light.svg" alt="Skote theme" height="22" />
+              <img src="~/assets/images/logo-light.svg" :alt="appConfig.title" height="22" />
             </span>
 
             <span class="logo-lg">
-              <img src="~/assets/images/logo-light.svg" alt="Skote theme" height="34" />
+              <img src="~/assets/images/logo-light.svg" :alt="appConfig.title" height="34" />
             </span>
           </NuxtLink>
         </div>
