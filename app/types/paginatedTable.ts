@@ -6,8 +6,7 @@ export interface PaginatedResponse<T> {
 export type ApiMethod<T> = (
   page?: number,
   perPage?: number,
-  search?: string,
-  ...args: any[]
+  search?: string
 ) => Promise<{
   status: number;
   data: PaginatedResponse<T>;

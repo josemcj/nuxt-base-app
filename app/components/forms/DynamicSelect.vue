@@ -1,48 +1,54 @@
-<script setup>
-import api from '@/lib/axios';
-import { onMounted, ref } from 'vue';
-import { useForm } from '@/composables/useForm';
+<script setup lang="ts">
+import type { SelectOption } from '@/types/forms';
 
-const value = defineModel();
-const emit = defineEmits(['change']);
+type SelectValue = string | number | null;
+type SelectRecord = Record<string, unknown>;
+
+interface CollectionResponse {
+  data: SelectRecord[];
+}
+
+const props = withDefaults(
+  defineProps<{
+    label: string;
+    uri: string;
+    className?: string;
+    required?: boolean;
+  }>(),
+  {
+    className: '',
+    required: true,
+  },
+);
+
+const value = defineModel<SelectValue>({ default: null });
+const emit = defineEmits<{
+  change: [value: SelectValue];
+}>();
+
+const { $api } = useNuxtApp();
 const formSelect = useForm().select();
+const elementId = useId();
+const options = ref<SelectOption<SelectRecord>[]>(formSelect.loading);
 
-const props = defineProps({
-  label: {
-    type: String,
-    required: true,
-  },
-  uri: {
-    type: String,
-    required: true,
-  },
-  className: {
-    type: String,
-    default: '',
-  },
-  required: {
-    type: Boolean,
-    default: true,
-  },
-});
+async function fetchOptions(): Promise<void> {
+  options.value = formSelect.loading;
 
-const elementId = Date.now();
-const options = ref(formSelect.loading);
-
-const fetchOptions = async () => {
   try {
-    const response = await api.get(props.uri);
+    const response = await $api<CollectionResponse>(props.uri);
 
-    if (response.status === 200) {
-      const { data } = response;
-      options.value = formSelect.create(data.data);
-    }
-  } catch (err) {
+    options.value = response.data.length > 0 ? formSelect.create(response.data) : formSelect.createEmpty();
+  } catch {
     options.value = formSelect.createError();
   }
-};
+}
 
 onMounted(fetchOptions);
+
+watch(
+  () => props.uri,
+  () => void fetchOptions(),
+);
 </script>
 
 <template>
@@ -58,7 +64,7 @@ onMounted(fetchOptions);
       :options="options"
       :class="className"
       :required="required"
-      @change="$emit('change')" />
+      @change="emit('change', value)" />
     <slot />
   </BFormGroup>
 </template>
