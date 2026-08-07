@@ -66,19 +66,17 @@ const isPdfFile = (file: File | null | undefined): boolean => {
 const buildPreviews = (fileList: File[] = []): void => {
   revokePreviews();
 
-  previewEntries.value = fileList.map(
-    (file): PreviewEntry => {
-      const isImage = isImageFile(file);
-      const isPdf = isPdfFile(file);
-      const needsUrl = isImage || isPdf;
+  previewEntries.value = fileList.map((file): PreviewEntry => {
+    const isImage = isImageFile(file);
+    const isPdf = isPdfFile(file);
+    const needsUrl = isImage || isPdf;
 
-      return {
-        isImage,
-        isPdf,
-        url: needsUrl ? URL.createObjectURL(file) : undefined,
-      };
-    }
-  );
+    return {
+      isImage,
+      isPdf,
+      url: needsUrl ? URL.createObjectURL(file) : undefined,
+    };
+  });
 };
 
 watch(
@@ -86,7 +84,7 @@ watch(
   (currentFiles) => {
     buildPreviews(currentFiles ?? []);
   },
-  { deep: true, immediate: true }
+  { deep: true, immediate: true },
 );
 
 onBeforeUnmount(() => {
@@ -120,8 +118,7 @@ onBeforeUnmount(() => {
                 v-if="previewEntries[index]?.isImage"
                 :src="previewEntries[index]?.url"
                 alt="Vista previa del documento"
-                class="dropzone-preview-image"
-              />
+                class="dropzone-preview-image" />
               <i v-else class="uil-paperclip fs-2"></i>
             </div>
           </div>
@@ -135,7 +132,11 @@ onBeforeUnmount(() => {
             </div>
           </div>
           <div class="flex-shrink-0 ms-3 d-flex justify-content-center align-items-center">
-            <BButton size="sm" variant="danger" @click="handleClickDeleteFile(index)" v-b-tooltip.hover.top="'Eliminar'">
+            <BButton
+              size="sm"
+              variant="danger"
+              @click="handleClickDeleteFile(index)"
+              v-b-tooltip.hover.top="'Eliminar'">
               <i class="uil-trash-alt"></i>
             </BButton>
           </div>
@@ -145,14 +146,12 @@ onBeforeUnmount(() => {
             v-if="previewEntries[index]?.isImage"
             :src="previewEntries[index]?.url"
             alt="Vista previa del documento"
-            class="dropzone-preview-large"
-          />
+            class="dropzone-preview-large" />
           <iframe
             v-else-if="previewEntries[index]?.isPdf"
             :src="previewEntries[index]?.url"
             title="Vista previa del PDF"
-            class="dropzone-preview-pdf"
-          ></iframe>
+            class="dropzone-preview-pdf"></iframe>
         </div>
       </div>
     </li>
