@@ -56,6 +56,8 @@ watch(
             }"
             :aria-expanded="expandedMenuId === item.id"
             @click.prevent="toggleMenu(item)">
+            <i v-if="item.icon" :class="['bx', item.icon]" />
+
             <span>{{ item.label }}</span>
 
             <span v-if="item.badge" :class="['badge', 'rounded-pill', `bg-${item.badge.variant}`, 'float-end']">
