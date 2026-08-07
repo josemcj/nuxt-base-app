@@ -1,14 +1,14 @@
 <script setup lang="ts">
-const layoutStore = useLayoutStore();
-const { layoutType } = storeToRefs(layoutStore);
+const appConfig = useAppConfig();
+const layoutType = appConfig.layout.type;
 </script>
 
 <template>
-  <LayoutVerticalLayout v-if="layoutType === 'vertical'">
+  <LazyLayoutVerticalLayout v-if="layoutType === 'vertical'">
     <slot />
-  </LayoutVerticalLayout>
+  </LazyLayoutVerticalLayout>
 
-  <LayoutHorizontalLayout v-else>
+  <LazyLayoutHorizontalLayout v-else>
     <slot />
-  </LayoutHorizontalLayout>
+  </LazyLayoutHorizontalLayout>
 </template>

@@ -1,34 +1,31 @@
 <script setup lang="ts">
-const layoutStore = useLayoutStore();
+const appConfig = useAppConfig();
 const route = useRoute();
 
-const { layoutWidth, leftSidebarType, loader, topbar } = storeToRefs(layoutStore);
+const { width: layoutWidth, leftSidebarType, topbar } = appConfig.layout;
+
+const layoutStore = useLayoutStore();
+const { loader } = storeToRefs(layoutStore);
 
 const sidebarEnabled = ref(false);
 const menuCondensed = ref(false);
 
 const bodyClasses = computed(() => ({
   'sidebar-enable': sidebarEnabled.value,
-  'vertical-collpsed': menuCondensed.value || leftSidebarType.value === 'icon',
+  'vertical-collpsed': menuCondensed.value || leftSidebarType === 'icon',
 }));
 
 const bodyAttributes = computed(() => {
-  const sidebarType = leftSidebarType.value;
-  const width = layoutWidth.value;
+  const sidebarType = leftSidebarType;
+  const width = layoutWidth;
 
   return {
-    'data-topbar': sidebarType === 'light' ? topbar.value : null,
-
+    'data-topbar': sidebarType === 'light' ? topbar : null,
     'data-sidebar': sidebarType === 'light' ? null : sidebarType,
-
     'data-sidebar-size': sidebarType === 'compact' ? 'small' : null,
-
     'data-keep-enlarged': sidebarType === 'icon' ? 'true' : null,
-
     'data-layout-size': width === 'boxed' ? 'boxed' : null,
-
     'data-layout-scrollable': width === 'scrollable' ? 'true' : null,
-
     'data-layout-mode': width === 'fluid' ? 'fluid' : null,
   };
 });

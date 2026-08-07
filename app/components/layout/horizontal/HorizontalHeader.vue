@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { AppNotification } from '~/types/notifications';
+
 defineProps<{
   menuOpen: boolean;
 }>();
@@ -8,12 +10,23 @@ const emit = defineEmits<{
 }>();
 
 const appConfig = useAppConfig();
+const notificationsStore = useNotificationsStore();
 
 const authStore = useAuthStore();
 
 const displayName = computed(() => {
   return authStore.getFullName() || 'Usuario';
 });
+
+const { items: notifications } = storeToRefs(notificationsStore);
+
+async function selectNotification(notification: AppNotification) {
+  notificationsStore.markAsRead(notification.id);
+
+  if (notification.to) {
+    await navigateTo(notification.to);
+  }
+}
 
 async function toggleFullscreen() {
   if (!import.meta.client) {
@@ -72,12 +85,20 @@ async function logout() {
 
       <div class="d-flex align-items-center">
         <button
+          v-if="appConfig.features.toggleFullScreen"
           type="button"
           class="btn header-item d-none d-sm-inline-block"
           aria-label="Activar pantalla completa"
           @click="toggleFullscreen">
           <i class="bx bx-fullscreen font-size-24" />
         </button>
+
+        <NotificationsDropdown
+          v-if="appConfig.features.notifications"
+          :items="notifications"
+          view-all-to="#"
+          @select="selectNotification"
+          @mark-all-as-read="notificationsStore.markAllAsRead()" />
 
         <BDropdown variant="link" toggle-class="header-item" menu-class="dropdown-menu-end" no-caret>
           <template #button-content>
