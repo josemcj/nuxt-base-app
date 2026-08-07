@@ -4,6 +4,7 @@ import { email as emailValidator, helpers, required } from '@vuelidate/validator
 
 definePageMeta({
   layout: 'auth',
+  middleware: 'guest',
 });
 
 useSeoMeta({
@@ -55,7 +56,6 @@ async function handleSubmit() {
             <div class="col-7">
               <div class="p-4 text-primary">
                 <h5 class="text-primary">¡Bienvenido!</h5>
-
                 <p>Inicia sesión para continuar.</p>
               </div>
             </div>

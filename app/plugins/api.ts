@@ -13,8 +13,13 @@ export default defineNuxtPlugin(() => {
 
     async onResponseError({ response }) {
       if (response.status === 401) {
-        token.value = null;
-        await navigateTo('/login');
+        const authStore = useAuthStore();
+
+        authStore.forceLogout();
+
+        if (useRoute().path !== '/login') {
+          await navigateTo('/login');
+        }
       }
     },
   });
