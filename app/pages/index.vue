@@ -5,7 +5,7 @@ definePageMeta({
 
 useSeoMeta({
   title: 'Dashboard',
-  description: 'Panel principal de OXXO Gas',
+  description: 'Panel principal',
 });
 
 const breadcrumbItems = [
