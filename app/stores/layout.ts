@@ -2,7 +2,7 @@ import type { LayoutState } from '~/types/layouts';
 
 export const useLayoutStore = defineStore('layout', {
   state: (): LayoutState => ({
-    layoutType: 'horizontal',
+    layoutType: 'vertical',
     layoutWidth: 'fluid',
     leftSidebarType: 'dark',
     topbar: 'dark',

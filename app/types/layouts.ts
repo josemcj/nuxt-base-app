@@ -1,8 +1,8 @@
 export interface LayoutState {
   layoutType: 'horizontal' | 'vertical';
-  layoutWidth: 'fluid' | 'boxed';
-  leftSidebarType: 'dark' | 'light';
-  topbar: 'dark' | 'light';
+  layoutWidth: 'fluid' | 'boxed' | 'scrollable';
+  leftSidebarType: 'dark' | 'light' | 'compact' | 'icon' | 'colored';
+  topbar: 'dark' | 'light' | 'colored';
   loader: boolean;
 }
 
