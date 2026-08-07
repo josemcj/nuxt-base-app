@@ -42,15 +42,20 @@ watch(
           {{ item.label }}
         </li>
 
-        <li v-else :class="{ 'mm-active': isActive(item) }">
+        <li
+          v-else
+          :class="{
+            'mm-active': hasChildren(item) ? expandedMenuId === item.id : isActive(item),
+          }">
           <a
             v-if="hasChildren(item)"
             href="#"
             class="is-parent has-arrow"
-            :class="{ 'mm-active': isActive(item) }"
+            :class="{
+              'mm-active': expandedMenuId === item.id,
+            }"
+            :aria-expanded="expandedMenuId === item.id"
             @click.prevent="toggleMenu(item)">
-            <i v-if="item.icon" :class="['bx', item.icon]" />
-
             <span>{{ item.label }}</span>
 
             <span v-if="item.badge" :class="['badge', 'rounded-pill', `bg-${item.badge.variant}`, 'float-end']">
@@ -66,10 +71,11 @@ watch(
 
           <ul
             v-if="hasChildren(item)"
-            class="sub-menu mm-collapse"
+            class="sub-menu mm-collapse app-submenu"
             :class="{
-              'mm-show': expandedMenuId === item.id || isActive(item),
-            }">
+              'mm-show': expandedMenuId === item.id,
+            }"
+            :aria-expanded="expandedMenuId === item.id">
             <li v-for="subItem in item.subItems" :key="subItem.id" :class="{ 'mm-active': isActive(subItem) }">
               <NuxtLink :to="subItem.link || '/'" class="side-nav-link-ref" :class="{ active: isActive(subItem) }">
                 {{ subItem.label }}
