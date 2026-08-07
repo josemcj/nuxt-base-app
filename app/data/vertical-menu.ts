@@ -21,7 +21,7 @@ export const verticalMenuItems: VerticalMenuItem[] = [
   },
   {
     id: 70,
-    label: 'Nexen',
+    label: 'Otro elemento',
     link: '#',
     icon: 'bx-briefcase-alt',
   },

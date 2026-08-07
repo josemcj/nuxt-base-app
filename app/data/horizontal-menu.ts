@@ -16,7 +16,7 @@ export const horizontalMenuItems: HorizontalMenuItem[] = [
   },
   {
     id: 2,
-    label: 'Nexen',
+    label: 'Otro elemento',
     link: '#',
     icon: 'bx-briefcase-alt',
   },
