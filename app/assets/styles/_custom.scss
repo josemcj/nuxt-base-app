@@ -217,3 +217,29 @@ body {
   animation-duration: 0.3s !important;
   animation-fill-mode: both !important;
 }
+
+.notification-item-unread {
+  > .d-flex {
+    background-color: rgba($primary, 0.08);
+  }
+
+  h6 {
+    font-weight: $font-weight-semibold;
+  }
+
+  &:hover {
+    > .d-flex {
+      background-color: rgba($primary, 0.13);
+    }
+  }
+}
+
+.notification-unread-dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 5px;
+  margin-left: 0.75rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background-color: $primary;
+}

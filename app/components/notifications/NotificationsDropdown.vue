@@ -21,6 +21,7 @@ const props = withDefaults(
 const emit = defineEmits<{
   select: [notification: AppNotification];
   viewAll: [];
+  markAllAsRead: [];
 }>();
 
 const unreadCount = computed(() => {
@@ -37,6 +38,10 @@ async function selectNotification(notification: AppNotification) {
 
 function viewAll() {
   emit('viewAll');
+}
+
+function markAllAsRead() {
+  emit('markAllAsRead');
 }
 </script>
 
@@ -66,7 +71,8 @@ function viewAll() {
         </div>
 
         <div class="col-auto">
-          <NuxtLink :to="viewAllTo" class="small" @click="viewAll">Ver todas</NuxtLink>
+          <a v-if="unreadCount" href="#" class="small" @click.prevent.stop="markAllAsRead">Marcar todas como leídas</a>
+          <span v-else class="small text-muted">Todo leído</span>
         </div>
       </div>
     </div>
@@ -82,6 +88,9 @@ function viewAll() {
         :key="notification.id"
         href="#"
         class="text-reset notification-item"
+        :class="{
+          'notification-item-unread': !notification.read,
+        }"
         @click.prevent="selectNotification(notification)">
         <div class="d-flex">
           <img
@@ -113,6 +122,7 @@ function viewAll() {
               </p>
             </div>
           </div>
+          <span v-if="!notification.read" class="notification-unread-dot" aria-label="Notificación sin leer" />
         </div>
       </a>
     </div>
