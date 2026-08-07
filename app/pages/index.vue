@@ -17,5 +17,5 @@ const breadcrumbItems = [
 </script>
 
 <template>
-  <PageHeader title="Dashboard" :items="breadcrumbItems" />
+  <CommonPageHeader title="Dashboard" :items="breadcrumbItems" />
 </template>
