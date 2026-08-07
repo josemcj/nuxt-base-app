@@ -70,22 +70,7 @@ function toggleMenu() {
         </div>
       </header>
 
-      <div class="topnav">
-        <BContainer fluid>
-          <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
-            <div id="topnav-menu-content" class="collapse navbar-collapse" :class="{ show: menuOpen }">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <NuxtLink to="/" class="nav-link" @click="menuOpen = false">
-                    <i class="bx bx-home-circle me-2" />
-                    Dashboard
-                  </NuxtLink>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </BContainer>
-      </div>
+      <AppHorizontalNav :open="menuOpen" @close="menuOpen = false" />
 
       <div class="main-content">
         <div class="page-content">
