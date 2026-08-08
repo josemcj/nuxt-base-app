@@ -11,11 +11,7 @@ export function useXLSX() {
     return allowedExtensions.includes(fileExtension);
   }
 
-  function toJson(
-    file: File,
-    hasHeaders: boolean = true,
-    cellsToString: boolean = true
-  ): Promise<ExcelJsonRow[]> {
+  function toJson(file: File, hasHeaders: boolean = true, cellsToString: boolean = true): Promise<ExcelJsonRow[]> {
     if (!isValidFile(file)) {
       return Promise.reject(new Error('No se proporcionó un archivo válido.'));
     }
@@ -35,19 +31,19 @@ export function useXLSX() {
           const data = new Uint8Array(result);
           const workbook = XLSX.read(data, { type: 'array' });
 
-        const sheetName = workbook.SheetNames[0];
+          const sheetName = workbook.SheetNames[0];
 
-        if (!sheetName) {
-        reject(new Error('El archivo no contiene hojas.'));
-        return;
-        }
+          if (!sheetName) {
+            reject(new Error('El archivo no contiene hojas.'));
+            return;
+          }
 
-        const sheet = workbook.Sheets[sheetName];
+          const sheet = workbook.Sheets[sheetName];
 
-        if (!sheet) {
-        reject(new Error('No fue posible obtener la hoja del archivo.'));
-        return;
-        }
+          if (!sheet) {
+            reject(new Error('No fue posible obtener la hoja del archivo.'));
+            return;
+          }
           const rawData = hasHeaders
             ? (XLSX.utils.sheet_to_json(sheet) as ExcelRowObject[])
             : (XLSX.utils.sheet_to_json(sheet, { header: 1 }) as ExcelArrayRow[]);
@@ -78,14 +74,16 @@ export function useXLSX() {
         return row.map((cell) => String(cell ?? ''));
       }
 
-      return Object.fromEntries(Object.entries(row).map(([key, value]) => [key, String(value ?? '')])) as ExcelRowObject;
+      return Object.fromEntries(
+        Object.entries(row).map(([key, value]) => [key, String(value ?? '')]),
+      ) as ExcelRowObject;
     });
   }
 
   function flattenObject(
     obj: ExcelRowObject,
     parentKey: string = '',
-    result: Record<string, unknown> = {}
+    result: Record<string, unknown> = {},
   ): Record<string, unknown> {
     for (const key in obj) {
       const value = obj[key];
@@ -118,7 +116,7 @@ export function useXLSX() {
       return Object.fromEntries(
         Object.entries(flattened).filter(([key]) => {
           return !excludeFields.some((excluded) => key === excluded || key.startsWith(`${excluded}.`));
-        })
+        }),
       );
     });
 
